@@ -4,7 +4,7 @@ import './assets/element-custom/index.css';
 
 import router from './router';
 import store from './vuex/store';
-import './assets/css/index.scss';
+import './assets/styles/index.styl';
 
 if (!window.ELEMENT) Vue.use(ElementUI);
 

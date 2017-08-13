@@ -21,23 +21,68 @@ module.exports = ({mode}) => ({
   },
   extendWebpack(config) {
     config.resolve.alias.set('@', resolve('src/forum'));
+    config.module.rule('vue')
+    .use('vue-loader')
+    .tap(vueOptions => {
+      vueOptions.loaders.stylus.push({
+        loader: 'stylus-resources-loader',
+        options: {
+          resources: [
+            path.resolve(__dirname, './src/forum/assets/styles/base/var.styl'),
+            path.resolve(__dirname, './src/forum/assets/styles/base/placeholder.styl')
+          ]
+        }
+      });
+      return vueOptions;
+    });
   },
   production: {
     presets: [],
     sourceMap: false,
     extendWebpack(config) {
       config.resolve.alias.set('@', resolve('src/forum'));
+      config.module.rule('vue')
+      .use('vue-loader')
+      .tap(vueOptions => {
+        vueOptions.loaders.stylus.push({
+          loader: 'stylus-resources-loader',
+          options: {
+            resources: [
+              path.resolve(__dirname, './src/forum/assets/styles/base/var.styl'),
+              path.resolve(__dirname, './src/forum/assets/styles/base/placeholder.styl')
+            ]
+          }
+        });
+        return vueOptions;
+      });
       config.plugin('cdn').use(require('webpack-cdn-plugin'), [
         {
           modules: [
-            {name: 'axios', var: 'axios', path: 'dist/axios.min.js'},
-            {name: 'vue', var: 'Vue', path: 'dist/vue.runtime.min.js'},
+            { 
+              name: 'axios', 
+              var: 'axios', 
+              path: 'dist/axios.min.js'
+            },
+            { 
+              name: 'vue', 
+              var: 'Vue', 
+              path: 'dist/vue.runtime.min.js'
+            },
             {
               name: 'vue-router',
               var: 'VueRouter',
               path: 'dist/vue-router.min.js',
             },
-            {name: 'vuex', var: 'Vuex', path: 'dist/vuex.min.js'},
+            {  
+              name: 'vuex', 
+              var: 'Vuex', 
+              path: 'dist/vuex.min.js'
+            },
+            {
+              name: 'vue-i18n',
+              var: 'VueI18n',
+              path: 'dist/vue-i18n.min.js'
+            },
             {
               name: 'element-ui',
               var: 'ELEMENT',

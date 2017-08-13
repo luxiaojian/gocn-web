@@ -1,0 +1,44 @@
+*
+:before
+:after
+  box-sizing border-box
+
+html
+body
+  height 100%
+
+body
+  @extends $font-sans
+  background-color $bg-color
+  color $text-color
+  margin 0
+
+.clearfix:after
+  content ''
+  clear both
+  display block
+  height 0
+  visibility hidden
+
+pre
+code
+  @extends $font-monospace
+
+a
+  color $link-color
+  text-decoration none
+
+a:hover
+  color $link-highlight
+  text-decoration underline
+
+a.no-decoration:hover
+  text-decoration none
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
